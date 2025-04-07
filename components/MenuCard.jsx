@@ -18,9 +18,9 @@ const MenuCard = ({
 
   useEffect(() => {
     if (
-      isActive 
-      && cardRef.current 
-      && scrollContainerRef?.current 
+      isActive
+      && cardRef.current
+      && scrollContainerRef?.current
       && window.innerWidth < 640
     ) {
       const card = cardRef.current;
@@ -66,7 +66,9 @@ const MenuCard = ({
 
       {isActive && (
         <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
-          <div className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}>
+          <div
+            className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}
+          >
             <Image
               src="/pig.png"
               alt="pig icon"
