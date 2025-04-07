@@ -18,22 +18,19 @@ const MenuCard = ({
 
   useEffect(() => {
     if (
-      isActive
-      && cardRef.current
-      && scrollContainerRef?.current
-      && typeof window !== 'undefined'
+      isActive &&
+      cardRef.current &&
+      scrollContainerRef?.current &&
+      window.innerWidth < 640
     ) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
 
-      const cardLeft = card.offsetLeft;
-      const cardWidth = card.offsetWidth;
-      const containerWidth = container.clientWidth;
-
-      const scrollTo = cardLeft - (containerWidth / 2 - cardWidth / 2);
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const containerCenter = container.offsetWidth / 2;
 
       container.scrollTo({
-        left: scrollTo,
+        left: cardCenter - containerCenter,
         behavior: 'smooth',
       });
     }
@@ -45,14 +42,9 @@ const MenuCard = ({
       role="button"
       tabIndex={0}
       onClick={() => handleClick(id)}
-      className={`
-        relative
-        ${isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'}
-        h-[600px]
-        transition-all duration-500 ease-out
-        cursor-pointer snap-center
-        flex-shrink-0 flex items-center justify-center
-      `}
+      className={`relative ${
+        isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'
+      } h-[600px] transition-all duration-500 ease-out cursor-pointer snap-center flex-shrink-0 flex items-center justify-center`}
     >
       <Image
         src={imgUrl}
@@ -64,13 +56,7 @@ const MenuCard = ({
       />
 
       {!isActive && (
-        <h3
-          className="
-            font-semibold sm:text-[22px] text-[16px] text-white
-            absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0]
-            whitespace-normal break-words text-center w-[160px]
-          "
-        >
+        <h3 className="font-semibold sm:text-[22px] text-[16px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] whitespace-normal break-words text-center w-[160px]">
           {title}
         </h3>
       )}
