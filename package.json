@@ -2,12 +2,12 @@
   "name": "metaverse13",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bylee777.github.io/the-k-bbq",
+  "homepage": "https://your-username.github.io/the-k-bbq",
+
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "export": "next build && next export -o out",
     "predeploy": "npm run export",
     "deploy": "gh-pages -d out"

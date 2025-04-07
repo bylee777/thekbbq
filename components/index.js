@@ -1,18 +1,6 @@
 import Navbar from "./Navbar";
 import { TypingText, TitleText } from "./CustomTexts";
-import ExploreCard from "./ExploreCard";
-import StartSteps from "./StartSteps";
-import NewFeatures from "./NewFeatures";
-import InsightCard from "./InsightCard";
+import MenuCard from "./MenuCard";
 import Footer from "./Footer";
 
-export {
-  Navbar,
-  TitleText,
-  TypingText,
-  StartSteps,
-  NewFeatures,
-  ExploreCard,
-  InsightCard,
-  Footer,
-};
+export { Navbar, TitleText, TypingText, MenuCard, Footer };

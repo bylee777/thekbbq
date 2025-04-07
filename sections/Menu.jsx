@@ -2,8 +2,8 @@
 
 import { useRef, useState } from 'react';
 import styles from '../styles';
-import { exploreWorlds } from '../constants';
-import { ExploreCard, TypingText } from '../components';
+import { menuList } from '../constants';
+import { MenuCard, TypingText } from '../components';
 
 const categories = [
   'Pork',
@@ -17,14 +17,14 @@ const categories = [
   'Rice',
 ];
 
-const Explore = () => {
+const Menu = () => {
   const [active, setActive] = useState(null);
   const [activeCategory, setActiveCategory] = useState('Pork');
 
   const scrollContainerRef = useRef(null);
   const cardRefs = useRef({});
 
-  const filteredWorlds = exploreWorlds.filter((world) =>
+  const filteredMenus = menuList.filter((world) =>
     Array.isArray(world.category)
       ? world.category.includes(activeCategory)
       : world.category === activeCategory
@@ -61,7 +61,7 @@ const Explore = () => {
   
 
   return (
-    <section className={`${styles.paddings}`} id="explore">
+    <section className={`${styles.paddings}`} id="menu">
       <div className={`${styles.innerWidth} mx-auto flex flex-col`}>
         <TypingText title="| Menu" textStyles="text-center" />
 
@@ -88,13 +88,13 @@ const Explore = () => {
           className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-[10vw] sm:px-0"
 
         >
-          {filteredWorlds.map((world, index) => (
+          {filteredMenus.map((world, index) => (
             <div
               key={world.id}
               ref={(el) => (cardRefs.current[world.id] = el)}
               className="snap-start"
             >
-              <ExploreCard
+              <MenuCard
                 {...world}
                 index={index}
                 active={active}
@@ -108,4 +108,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Menu;

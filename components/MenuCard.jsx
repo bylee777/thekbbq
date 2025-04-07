@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import styles from '../styles';
 
-const ExploreCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollContainerRef }) => {
+const MenuCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollContainerRef }) => {
   const isActive = active === id;
   const cardRef = useRef(null);
 
@@ -72,4 +72,4 @@ const ExploreCard = ({ id, imgUrl, title, text, index, active, handleClick, scro
   );
 };
 
-export default ExploreCard;
+export default MenuCard;
