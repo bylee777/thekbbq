@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Image from 'next/image'; // Use Next.js optimized image
+import Image from 'next/image';
 import styles from '../styles';
 
 const MenuCard = ({
@@ -18,10 +18,10 @@ const MenuCard = ({
 
   useEffect(() => {
     if (
-      isActive &&
-      cardRef.current &&
-      scrollContainerRef?.current &&
-      window.innerWidth < 640
+      isActive
+      && cardRef.current
+      && scrollContainerRef?.current
+      && window.innerWidth < 640
     ) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
@@ -31,7 +31,7 @@ const MenuCard = ({
 
       container.scrollTo({
         left: cardCenter - containerCenter,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   }, [isActive]);
@@ -44,7 +44,7 @@ const MenuCard = ({
       onClick={() => handleClick(id)}
       className={`
         relative
-        ${isActive ? "w-[75vw] lg:w-[600px]" : "w-[200px]"}
+        ${isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'}
         h-[600px]
         transition-all duration-500 ease-out
         cursor-pointer snap-center
