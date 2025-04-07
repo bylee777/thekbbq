@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image'; // ✅ Use Next.js image optimization
 import styles from '../styles';
 
-const MenuCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollContainerRef }) => {
+const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContainerRef }) => {
   const isActive = active === id;
   const cardRef = useRef(null);
 
@@ -20,11 +21,14 @@ const MenuCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollC
         behavior: 'smooth',
       });
     }
-  }, [isActive, scrollContainerRef]);
+  }, [isActive]); // ✅ No need to include scrollContainerRef as a dependency
 
   return (
     <div
       ref={cardRef}
+      role="button" // ✅ Accessibility
+      tabIndex={0}
+      onClick={() => handleClick(id)}
       className={`
         relative
         ${isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'}
@@ -33,12 +37,15 @@ const MenuCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollC
         cursor-pointer snap-center
         flex-shrink-0 flex items-center justify-center
       `}
-      onClick={() => handleClick(id)}
     >
-      <img
+      {/* ✅ Use Next.js Image for optimization */}
+      <Image
         src={imgUrl}
         alt={title}
-        className="absolute w-full h-full object-cover rounded-[24px]"
+        fill
+        className="object-cover rounded-[24px]"
+        sizes="(max-width: 768px) 75vw, 600px"
+        priority
       />
 
       {!isActive && (
@@ -54,10 +61,12 @@ const MenuCard = ({ id, imgUrl, title, text, index, active, handleClick, scrollC
       {isActive && (
         <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
           <div className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}>
-            <img
+            <Image
               src="/pig.png"
               alt="pig icon"
-              className="w-1/2 h-1/2 object-contain"
+              width={20}
+              height={20}
+              className="object-contain"
             />
           </div>
           <h2 className="mt-[24px] font-semibold sm:text-[32px] text-[24px] text-white leading-tight break-words">

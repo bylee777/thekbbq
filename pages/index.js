@@ -9,7 +9,7 @@ const Home = () => (
       <About />
       <Menu />
     </div>
-    <div className="relative"></div>
+    <div className="relative" />
     <Footer />
   </div>
 );
