@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import styles from '../styles';
-import { exploreWorlds } from '../constants';
+import { menuList } from '../constants';
 import { MenuCard, TypingText } from '../components';
 
 const categories = [
@@ -22,11 +22,12 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('Pork');
 
   const scrollContainerRef = useRef(null);
+  const cardRefs = useRef({});
 
-  const filteredWorlds = exploreWorlds.filter((world) =>
-    Array.isArray(world.category)
-      ? world.category.includes(activeCategory)
-      : world.category === activeCategory
+  const filteredMenus = menuList.filter((item) =>
+    Array.isArray(item.category)
+      ? item.category.includes(activeCategory)
+      : item.category === activeCategory
   );
 
   const handleCategoryClick = (cat) => {
@@ -39,9 +40,7 @@ const Menu = () => {
   const handleCardClick = (id) => {
     setActive(id);
 
-    const cardElement = scrollContainerRef.current?.querySelector(
-      `[data-id="${id}"]`
-    );
+    const cardElement = cardRefs.current[id];
     const container = scrollContainerRef.current;
 
     if (window.innerWidth < 640 && cardElement && container) {
@@ -53,8 +52,8 @@ const Menu = () => {
 
       const scrollOffset = cardCenter - containerCenter;
 
-      container.scrollBy({
-        left: scrollOffset,
+      container.scrollTo({
+        left: container.scrollLeft + scrollOffset,
         behavior: 'smooth',
       });
     }
@@ -71,7 +70,7 @@ const Menu = () => {
             <button
               key={cat}
               onClick={() => handleCategoryClick(cat)}
-              className={`text-sm sm:text-base px-4 py-2 rounded-xl transition-colors whitespace-normal break-words text-center w-full ${
+              className={`text-sm sm:text-base px-4 py-2 rounded-xl transition-colors whitespace-normal break-words text-center ${
                 activeCategory === cat
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-800 text-gray-400'
@@ -85,19 +84,19 @@ const Menu = () => {
         {/* Cards */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-2 lg:px-[10vw]"
+          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-[6vw] sm:px-0"
         >
-          {filteredWorlds.map((world, index) => (
+          {filteredMenus.map((item, index) => (
             <div
-              key={world.id}
-              data-id={world.id}
+              key={item.id}
+              ref={(el) => (cardRefs.current[item.id] = el)}
               className="snap-start"
             >
               <MenuCard
-                {...world}
+                {...item}
                 index={index}
                 active={active}
-                handleClick={() => handleCardClick(world.id)}
+                handleClick={() => handleCardClick(item.id)}
                 scrollContainerRef={scrollContainerRef}
               />
             </div>
