@@ -11,7 +11,6 @@ const MenuCard = ({
   text,
   active,
   handleClick,
-  scrollContainerRef, // passed for consistency, no effect here
 }) => {
   const isActive = active === id;
   const cardRef = useRef(null);
