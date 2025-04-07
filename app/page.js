@@ -1,14 +1,13 @@
-import { Footer, Navbar } from "../components";
+import { Footer, Navbar } from '../components';
 import {
   About,
   Menu,
   Feedback,
   GetStarted,
   Hero,
-  Insights,
   WhatsNew,
   World,
-} from "../sections";
+} from '../sections';
 
 const Page = () => (
   <div className="bg-primary-black overflow-hidden">
@@ -26,7 +25,7 @@ const Page = () => (
     </div>
     <World />
     <div className="relative">
-      <Insights />
+      {/* <Insights /> */}
 
       <Feedback />
     </div>
