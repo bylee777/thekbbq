@@ -18,23 +18,24 @@ const MenuCard = ({
 
   useEffect(() => {
     if (
-      isActive &&
-      cardRef.current &&
-      scrollContainerRef?.current &&
-      window.innerWidth < 640
+      isActive
+      && cardRef.current
+      && scrollContainerRef?.current
+      && window.innerWidth < 640
     ) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
-
+  
       const cardCenter = card.offsetLeft + card.offsetWidth / 2;
       const containerCenter = container.offsetWidth / 2;
-
+  
       container.scrollTo({
         left: cardCenter - containerCenter,
         behavior: 'smooth',
       });
     }
   }, [isActive]);
+  
 
   return (
     <div
