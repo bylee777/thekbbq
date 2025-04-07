@@ -17,19 +17,15 @@ const MenuCard = ({
   const cardRef = useRef(null);
 
   useEffect(() => {
-      if (isActive
-        && cardRef.current
-        && scrollContainerRef?.current
-        && window.innerWidth < 640
-      ) {
-      
+    if (isActive
+      && cardRef.current
+      && scrollContainerRef?.current
+      && window.innerWidth < 640) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
-
       const cardLeft = card.offsetLeft;
       const cardWidth = card.offsetWidth;
       const containerWidth = container.clientWidth;
-
       const scrollTo = cardLeft - (containerWidth / 2 - cardWidth / 2);
 
       container.scrollTo({
