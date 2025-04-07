@@ -32,29 +32,12 @@ const Menu = () => {
 
   const handleCategoryClick = (cat) => {
     setActive(null);
-    setTimeout(() => {
-      setActiveCategory(cat);
-    }, 0);
+    setTimeout(() => setActiveCategory(cat), 0);
   };
 
   const handleCardClick = (id) => {
     setActive(id);
-
-    const cardElement = cardRefs.current[id];
-    const container = scrollContainerRef.current;
-
-    if (window.innerWidth < 640 && cardElement && container) {
-      const cardLeft = cardElement.offsetLeft;
-      const cardWidth = cardElement.offsetWidth;
-      const containerWidth = container.offsetWidth;
-
-      const scrollTo = cardLeft - (containerWidth / 2) + (cardWidth / 2);
-
-      container.scrollTo({
-        left: scrollTo,
-        behavior: 'smooth',
-      });
-    }
+    // MenuCard handles scrolling logic
   };
 
   return (
@@ -63,7 +46,7 @@ const Menu = () => {
         <TypingText title="| Menu" textStyles="text-center" />
 
         {/* Category Tabs */}
-        <div className="grid grid-cols-3 gap-3 sm:flex sm:gap-4 sm:mt-10 sm:mb-8 sm:overflow-x-auto sm:scrollbar-hide sm:px-4 sm:justify-center mt-6 mb-6 px-2">
+        <div className="flex flex-nowrap overflow-x-auto scrollbar-hide gap-3 mt-6 mb-6 px-2 sm:justify-center">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -79,10 +62,10 @@ const Menu = () => {
           ))}
         </div>
 
-        {/* Cards */}
+        {/* Menu Cards */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-[10vw] sm:px-0"
+          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-4"
         >
           {filteredMenus.map((item, index) => (
             <div
