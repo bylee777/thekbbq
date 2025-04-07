@@ -18,24 +18,23 @@ const MenuCard = ({
 
   useEffect(() => {
     if (
-      isActive
-      && cardRef.current
-      && scrollContainerRef?.current
-      && window.innerWidth < 640
+      isActive &&
+      cardRef.current &&
+      scrollContainerRef?.current &&
+      window.innerWidth < 640
     ) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
-  
+
       const cardCenter = card.offsetLeft + card.offsetWidth / 2;
       const containerCenter = container.offsetWidth / 2;
-  
+
       container.scrollTo({
         left: cardCenter - containerCenter,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   }, [isActive]);
-  
 
   return (
     <div
@@ -45,7 +44,7 @@ const MenuCard = ({
       onClick={() => handleClick(id)}
       className={`
         relative
-        ${isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'}
+        ${isActive ? "w-[75vw] lg:w-[600px]" : "w-[200px]"}
         h-[600px]
         transition-all duration-500 ease-out
         cursor-pointer snap-center
@@ -74,9 +73,7 @@ const MenuCard = ({
       )}
 
       {isActive && (
-        <div
-          className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]"
-        >
+        <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
           <div
             className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}
           >
