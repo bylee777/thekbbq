@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Image from 'next/image'; // ✅ Use Next.js image optimization
+import Image from 'next/image'; // Use Next.js optimized image
 import styles from '../styles';
 
 const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContainerRef }) => {
@@ -21,12 +21,12 @@ const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContaine
         behavior: 'smooth',
       });
     }
-  }, [isActive]); // ✅ No need to include scrollContainerRef as a dependency
+  }, [isActive]); // No need to include scrollContainerRef in deps
 
   return (
     <div
       ref={cardRef}
-      role="button" // ✅ Accessibility
+      role="button"
       tabIndex={0}
       onClick={() => handleClick(id)}
       className={`
@@ -38,7 +38,6 @@ const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContaine
         flex-shrink-0 flex items-center justify-center
       `}
     >
-      {/* ✅ Use Next.js Image for optimization */}
       <Image
         src={imgUrl}
         alt={title}

@@ -1,9 +1,9 @@
 {
-  "name": "metaverse13",
+  "name": "TheKBBQ",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://your-username.github.io/the-k-bbq",
-  
+
   "scripts": {
     "dev": "next dev",
     "build": "next build",
