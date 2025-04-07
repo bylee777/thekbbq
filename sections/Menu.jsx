@@ -39,6 +39,21 @@ const Menu = () => {
 
   const handleCardClick = (id) => {
     setActive(id);
+
+    const cardElement = cardRefs.current[id];
+    const container = scrollContainerRef.current;
+
+    if (window.innerWidth < 640 && cardElement && container) {
+      const cardRect = cardElement.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const offset = cardRect.left - containerRect.left - (containerRect.width / 2 - cardRect.width / 2);
+
+      container.scrollTo({
+        left: container.scrollLeft + offset,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
@@ -52,7 +67,7 @@ const Menu = () => {
             <button
               key={cat}
               onClick={() => handleCategoryClick(cat)}
-              className={`text-sm sm:text-base px-4 py-2 rounded-xl transition-colors whitespace-nowrap max-w-[110px] truncate ${
+              className={`text-sm sm:text-base px-4 py-2 rounded-xl transition-colors break-words text-center min-w-[100px] ${
                 activeCategory === cat
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-800 text-gray-400'
@@ -63,12 +78,11 @@ const Menu = () => {
           ))}
         </div>
 
-        {/* Scrollable Cards */}
+        {/* Cards */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-4 sm:px-0"
+          className="flex gap-5 overflow-x-auto scrollbar-hide flex-nowrap snap-x snap-mandatory px-[10vw] sm:px-0"
         >
-          <div className="w-[10vw] shrink-0" />
           {filteredMenus.map((item, index) => (
             <div
               key={item.id}
@@ -84,7 +98,6 @@ const Menu = () => {
               />
             </div>
           ))}
-          <div className="w-[10vw] shrink-0" />
         </div>
       </div>
     </section>
