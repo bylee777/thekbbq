@@ -28,9 +28,7 @@ const MenuCard = ({
 
       const cardRect = card.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
-
-      const scrollLeft =
-        card.offsetLeft - (containerRect.width / 2 - cardRect.width / 2);
+      const scrollLeft = card.offsetLeft - (containerRect.width / 2 - cardRect.width / 2);
 
       container.scrollTo({
         left: scrollLeft,
