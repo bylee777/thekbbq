@@ -4,12 +4,25 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image'; // Use Next.js optimized image
 import styles from '../styles';
 
-const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContainerRef }) => {
+const MenuCard = ({
+  id,
+  imgUrl,
+  title,
+  text,
+  active,
+  handleClick,
+  scrollContainerRef,
+}) => {
   const isActive = active === id;
   const cardRef = useRef(null);
 
   useEffect(() => {
-    if (isActive && cardRef.current && scrollContainerRef?.current && window.innerWidth < 640) {
+    if (
+      isActive &&
+      cardRef.current &&
+      scrollContainerRef?.current &&
+      window.innerWidth < 640
+    ) {
       const card = cardRef.current;
       const container = scrollContainerRef.current;
 
@@ -21,7 +34,7 @@ const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContaine
         behavior: 'smooth',
       });
     }
-  }, [isActive]); // No need to include scrollContainerRef in deps
+  }, [isActive]);
 
   return (
     <div
@@ -48,18 +61,24 @@ const MenuCard = ({ id, imgUrl, title, text, active, handleClick, scrollContaine
       />
 
       {!isActive && (
-        <h3 className="
-          font-semibold sm:text-[22px] text-[16px] text-white
-          absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0]
-          whitespace-normal break-words text-center w-[160px]
-        ">
+        <h3
+          className="
+            font-semibold sm:text-[22px] text-[16px] text-white
+            absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0]
+            whitespace-normal break-words text-center w-[160px]
+          "
+        >
           {title}
         </h3>
       )}
 
       {isActive && (
-        <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
-          <div className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}>
+        <div
+          className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]"
+        >
+          <div
+            className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}
+          >
             <Image
               src="/pig.png"
               alt="pig icon"

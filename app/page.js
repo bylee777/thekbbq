@@ -9,7 +9,7 @@ const Page = () => (
       <About />
       <Menu />
     </div>
-    <div className="relative"></div>
+    <div className="relative" />
     <World />
     <div className="relative">
       <Feedback />
