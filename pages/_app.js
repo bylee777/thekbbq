@@ -14,10 +14,8 @@
 // );
 
 // export default MyApp;
-import '../styles/globals.css'; // or './globals.css' if you're using Tailwind
+import '../styles/globals.css';
 
-const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
-};
+const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
 
 export default MyApp;
