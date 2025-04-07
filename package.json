@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://your-username.github.io/the-k-bbq",
-
+  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next build && next export -o out",
-    "predeploy": "npm run export",
-    "deploy": "gh-pages -d out"
-  },
+    "start": "next start"
+  }
+,  
   "dependencies": {
     "@expo/vector-icons": "^14.0.4",
     "eslint-config-next": "13.0.3",
