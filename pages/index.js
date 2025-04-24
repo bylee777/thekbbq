@@ -1,5 +1,5 @@
 import { Footer, Navbar } from '../components';
-import { About, Menu, Hero } from '../sections';
+import { About, Hero } from '../sections';
 
 const Home = () => (
   <div className="bg-kbbq-gradient overflow-hidden">
@@ -7,7 +7,6 @@ const Home = () => (
     <Hero />
     <div className="relative">
       <About />
-      <Menu />
     </div>
     <div className="relative" />
     <Footer />

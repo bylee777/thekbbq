@@ -25,7 +25,7 @@ const Navbar = () => (
       </Link>
 
       {/* Menu Button with Icon */}
-      <Link href="/menu">
+      <Link href="/menuPage">
         <button
           type="button"
           className="flex items-center gap-2 bg-[#FF7F50] hover:bg-[#e3683f] text-white font-semibold py-2 px-4 rounded-full transition duration-300"
