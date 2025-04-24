@@ -8,7 +8,6 @@ import { MenuCard, TypingText } from '../components';
 const categories = [
   'Pork',
   'Marinated',
-  'Chicken',
   'Beef',
   'Side For Grill',
   'Soup and Hotpot',
@@ -18,8 +17,27 @@ const categories = [
 ];
 
 const Menu = () => {
+  const [active, setActive] = useState(null);
   const scrollContainerRef = useRef(null);
   const cardRefs = useRef({});
+
+  const handleCardClick = (id) => {
+    setActive(id);
+    const cardElement = cardRefs.current[id];
+    const container = scrollContainerRef.current;
+
+    if (window.innerWidth < 640 && cardElement && container) {
+      const cardRect = cardElement.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      const offset = cardRect.left - containerRect.left - (containerRect.width / 2 - cardRect.width / 2);
+
+      container.scrollTo({
+        left: container.scrollLeft + offset,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <section className={`${styles.paddings}`} id="menu">
@@ -45,12 +63,13 @@ const Menu = () => {
                     key={item.id}
                     ref={(el) => (cardRefs.current[item.id] = el)}
                     className="snap-start"
+                    onClick={() => handleCardClick(item.id)}
                   >
                     <MenuCard
                       {...item}
                       index={index}
-                      active={null} // No interaction needed
-                      handleClick={() => {}} // No selection behavior
+                      active={active}
+                      handleClick={() => handleCardClick(item.id)}
                       scrollContainerRef={scrollContainerRef}
                     />
                   </div>
