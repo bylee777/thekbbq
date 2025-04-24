@@ -2,7 +2,7 @@ import { Footer, Navbar } from '../components';
 import { About, Menu, Hero } from '../sections';
 
 const Home = () => (
-  <div className="bg-primary-black overflow-hidden">
+  <div className="bg-kbbq-gradient overflow-hidden">
     <Navbar />
     <Hero />
     <div className="relative">
