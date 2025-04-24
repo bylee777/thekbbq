@@ -4,11 +4,21 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from '../styles';
 
+const iconMap = {
+  Pig: '/pig.png',
+  Beef: '/beef.png',
+  Chicken: '/chicken.png',
+  Seafood: '/seafood.png',
+};
+
 const MenuCard = ({
   id,
   imgUrl,
   title,
   text,
+  price,
+  icon,
+  grams,
   active,
   handleClick,
   scrollContainerRef,
@@ -53,7 +63,7 @@ const MenuCard = ({
         fill
         className="object-cover rounded-[24px]"
         sizes="(max-width: 768px) 75vw, 600px"
-        priority
+        loading="lazy"
       />
 
       {!isActive && (
@@ -64,21 +74,31 @@ const MenuCard = ({
 
       {isActive && (
         <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
-          <div
-            className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}
-          >
-            <Image
-              src="/pig.png"
-              alt="pig icon"
-              width={20}
-              height={20}
-              className="object-contain"
-            />
+          {/* Show icon only if valid */}
+          {icon && iconMap[icon] && (
+            <div className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}>
+              <Image
+                src={iconMap[icon]}
+                alt={`${icon} icon`}
+                width={20}
+                height={20}
+                className="object-contain"
+              />
+            </div>
+          )}
+
+          {/* Title + Price + (conditionally) Grams */}
+          <div className="mt-[24px] w-full flex items-center justify-between">
+            <h2 className="font-semibold sm:text-[32px] text-[24px] text-white leading-tight break-words">
+              {title}
+            </h2>
+            <div className="text-right">
+              <p className="font-bold text-[18px] text-white">${price}</p>
+              {grams && <p className="text-[14px] text-white">{grams}g</p>}
+            </div>
           </div>
-          <h2 className="mt-[24px] font-semibold sm:text-[32px] text-[24px] text-white leading-tight break-words">
-            {title}
-          </h2>
-          <p className="font-normal text-[16px] leading-[20.16px] text-white">
+
+          <p className="font-normal text-[16px] leading-[20.16px] text-white mt-2">
             {text}
           </p>
         </div>
