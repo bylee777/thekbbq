@@ -54,20 +54,20 @@ const MenuCard = ({
       tabIndex={0}
       onClick={() => handleClick(id)}
       className={`relative ${
-        isActive ? 'w-[75vw] lg:w-[600px]' : 'w-[200px]'
-      } h-[600px] transition-all duration-500 ease-out cursor-pointer snap-center flex-shrink-0 flex items-center justify-center`}
+        isActive ? 'w-[80vw] lg:w-[480px]' : 'w-[160px]'
+      } h-[500px] transition-all duration-500 ease-out cursor-pointer snap-center flex-shrink-0 flex items-center justify-center`}
     >
       <Image
         src={imgUrl}
         alt={title}
         fill
         className="object-cover rounded-[24px]"
-        sizes="(max-width: 768px) 75vw, 600px"
+        sizes="(max-width: 768px) 60vw, 480px"
         loading="lazy"
       />
 
       {!isActive && (
-        <h3 className="font-semibold sm:text-[22px] text-[16px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] whitespace-normal break-words text-center w-[160px]">
+        <h3 className="font-semibold text-[16px] sm:text-[22px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] whitespace-normal break-words text-center w-[160px]">
           {title}
         </h3>
       )}
@@ -89,16 +89,21 @@ const MenuCard = ({
 
           {/* Title + Price + (conditionally) Grams */}
           <div className="mt-[24px] w-full flex items-center justify-between">
-            <h2 className="font-semibold sm:text-[32px] text-[24px] text-white leading-tight break-words">
+            <h2 className="font-semibold text-[24px] sm:text-[32px] text-white leading-tight break-words">
               {title}
             </h2>
             <div className="text-right">
-              <p className="font-bold text-[18px] text-white">${price}</p>
-              {grams && <p className="text-[14px] text-white">{grams}</p>}
+              <p className="font-bold text-[16px] sm:text-[18px] text-white">${price}</p>
+              {grams && (
+                <p className="text-[12px] sm:text-[14px] text-white">
+                  {grams}g
+                </p>
+              )}
             </div>
           </div>
 
-          <p className="font-normal text-[16px] leading-[20.16px] text-white mt-2">
+          {/* Full Description - Always Visible */}
+          <p className="font-normal text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] text-white mt-2">
             {text}
           </p>
         </div>
