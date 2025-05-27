@@ -96,7 +96,7 @@ const MenuCard = ({
               <p className="font-bold text-[16px] sm:text-[18px] text-white">${price}</p>
               {grams && (
                 <p className="text-[12px] sm:text-[14px] text-white">
-                  {grams}g
+                  {grams}
                 </p>
               )}
             </div>
