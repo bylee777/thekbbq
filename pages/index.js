@@ -2,13 +2,12 @@ import { Footer, Navbar } from '../components';
 import { About, Hero } from '../sections';
 
 const Home = () => (
-  <div className="bg-kbbq-gradient overflow-hidden">
+  <div className="min-h-screen overflow-hidden">
     <Navbar />
-    <Hero />
-    <div className="relative">
+    <main>
+      <Hero />
       <About />
-    </div>
-    <div className="relative" />
+    </main>
     <Footer />
   </div>
 );

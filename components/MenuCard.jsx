@@ -1,114 +1,77 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import styles from '../styles';
 
 const iconMap = {
-  Pig: '/pig.png',
-  Beef: '/beef.png',
-  Chicken: '/chicken.png',
-  Seafood: '/seafood.png',
+  Pig: 'Pork',
+  Beef: 'Beef',
+  Chicken: 'Chicken',
+  Seafood: 'Seafood',
 };
 
 const MenuCard = ({
-  id,
   imgUrl,
   title,
   text,
   price,
   icon,
   grams,
-  active,
-  handleClick,
-  scrollContainerRef,
+  category,
 }) => {
-  const isActive = active === id;
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    if (
-      isActive
-      && cardRef.current
-      && scrollContainerRef?.current
-      && window.innerWidth < 640
-    ) {
-      const card = cardRef.current;
-      const container = scrollContainerRef.current;
-
-      const cardRect = card.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-      const scrollLeft = card.offsetLeft - (containerRect.width / 2 - cardRect.width / 2);
-
-      container.scrollTo({
-        left: scrollLeft,
-        behavior: 'smooth',
-      });
-    }
-  }, [isActive]);
+  const [imageSrc, setImageSrc] = useState(imgUrl || '/cover.png');
+  const description = text && text !== '---'
+    ? text
+    : 'A simple and satisfying add-on for tabletop grilling.';
+  const primaryCategory = Array.isArray(category) ? category[0] : category;
+  const displayPrice = price ? `$${price}` : 'Market price';
 
   return (
-    <div
-      ref={cardRef}
-      role="button"
-      tabIndex={0}
-      onClick={() => handleClick(id)}
-      className={`relative ${
-        isActive ? 'w-[80vw] lg:w-[480px]' : 'w-[160px]'
-      } h-[500px] transition-all duration-500 ease-out cursor-pointer snap-center flex-shrink-0 flex items-center justify-center`}
-    >
-      <Image
-        src={imgUrl}
-        alt={title}
-        fill
-        className="object-cover rounded-[24px]"
-        sizes="(max-width: 768px) 60vw, 480px"
-        loading="lazy"
-      />
+    <article className="surface-panel group flex h-full flex-col overflow-hidden rounded-3xl">
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src={imageSrc}
+          alt={title}
+          fill
+          className="object-cover transition duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
+          onError={() => setImageSrc('/cover.png')}
+        />
 
-      {!isActive && (
-        <h3 className="font-semibold text-[16px] sm:text-[22px] text-white absolute z-0 lg:bottom-20 lg:rotate-[-90deg] lg:origin-[0,0] whitespace-normal break-words text-center w-[160px]">
-          {title}
-        </h3>
-      )}
-
-      {isActive && (
-        <div className="absolute bottom-0 p-8 flex justify-start w-full flex-col bg-[rgba(0,0,0,0.5)] rounded-b-[24px]">
-          {/* Show icon only if valid */}
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3">
+          <span className="rounded-full bg-[rgba(31,26,22,0.72)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#f7ebe1]">
+            {primaryCategory || 'Menu Item'}
+          </span>
           {icon && iconMap[icon] && (
-            <div className={`${styles.flexCenter} w-[40px] h-[40px] rounded-[28px] glassmorphism mb-[5px]`}>
-              <Image
-                src={iconMap[icon]}
-                alt={`${icon} icon`}
-                width={20}
-                height={20}
-                className="object-contain"
-              />
-            </div>
+            <span className="rounded-full bg-[rgba(255,255,255,0.88)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent-deep)]">
+              {iconMap[icon]}
+            </span>
           )}
+        </div>
+      </div>
 
-          {/* Title + Price + (conditionally) Grams */}
-          <div className="mt-[24px] w-full flex items-center justify-between">
-            <h2 className="font-semibold text-[24px] sm:text-[32px] text-white leading-tight break-words">
-              {title}
-            </h2>
-            <div className="text-right">
-              <p className="font-bold text-[16px] sm:text-[18px] text-white">${price}</p>
-              {grams && (
-                <p className="text-[12px] sm:text-[14px] text-white">
-                  {grams}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Full Description - Always Visible */}
-          <p className="font-normal text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] text-white mt-2">
-            {text}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-[28px] font-semibold leading-[1.08] text-[var(--text-primary)]">
+            {title}
+          </h3>
+          <p className="whitespace-nowrap text-[17px] font-semibold text-[var(--accent-deep)]">
+            {displayPrice}
           </p>
         </div>
-      )}
-    </div>
+
+        {grams && (
+          <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+            {grams}
+          </p>
+        )}
+
+        <p className="mt-3 text-[14px] leading-6 text-[var(--text-muted)]">
+          {description}
+        </p>
+      </div>
+    </article>
   );
 };
 

@@ -1,40 +1,63 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TypingText } from '../components';
-
-import styles from '../styles';
 import { fadeIn, staggerContainer } from '../utils/motion';
 
-const About = () => (
-  <section className={`${styles.paddings} relative z-10`}>
+const highlights = [
+  {
+    title: 'Premium Ingredients',
+    text: 'We source quality pork, beef, and specialty cuts designed for tabletop grilling and bold Korean flavors.',
+  },
+  {
+    title: 'Balanced Menu Design',
+    text: 'Our lineup pairs grilled meats with noodles, hot pots, and classic sides so every table can build a complete meal.',
+  },
+  {
+    title: 'Group-Friendly Service',
+    text: 'We optimize for shared dining with efficient pacing, helpful staff support, and a comfortable atmosphere.',
+  },
+];
 
+const About = () => (
+  <section id="about" className="site-shell section-wrap pt-6 sm:pt-10">
     <motion.div
-      variants={staggerContainer}
+      variants={staggerContainer(0.12, 0)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0.25 }}
-      className={`${styles.innerWidth} mx-auto ${styles.flexCenter} flex-col`}
+      viewport={{ once: true, amount: 0.2 }}
+      className="space-y-8"
     >
-      <TypingText title="| About The Kbbq" textStyles="text-center" />
-
-      <motion.p
-        variants={fadeIn('up', 'tween', 0.2, 1)}
-        className="mt-[8px] font-normal sm:text-[32px] text-[20px] text-center text-secondary-white"
+      <motion.div
+        variants={fadeIn('up', 'tween', 0.1, 0.8)}
+        className="max-w-[760px] space-y-4"
       >
-        <span className="font-extrabold text-white">🇰🇷 🔥 At The KBBQ 🍖,</span> we specialize in tantalizing marinated meats that elevate your dining experience. Located in the vibrant heart of Toronto, CA, our menu features a diverse selection of 🐖 pork, 🐄 beef, and signature combinations that promise to delight your taste buds.
+        <span className="section-tag">About The KBBQ</span>
+        <h2 className="display-heading max-w-[20ch] text-[36px] sm:text-[50px] lg:text-[56px]">
+          A focused menu built for real Korean BBQ dining
+        </h2>
+        <span className="body-copy block">
+          The KBBQ combines house marinades, premium cuts, and Korean comfort
+          classics into a polished group-dining experience. Our approach is
+          simple: great ingredients, strong execution, and hospitality that
+          makes every table feel taken care of.
+        </span>
+      </motion.div>
 
-Whether you're indulging in a family feast or a casual night out with friends, The KBBQ offers an unforgettable culinary journey that captures the essence of Korean barbecue.
-
-Join us and discover why we are the go-to spot for meat lovers! 🥩🔥🍽️
-      </motion.p>
-
-      <motion.img
-        variants={fadeIn('up', 'tween', 0.3, 1)}
-        src="/arrow-down.svg"
-        alt="arrow down"
-        className="w-[18px] h-[28px] object-contain mt-[28px]"
-      />
+      <motion.div
+        variants={fadeIn('up', 'tween', 0.2, 0.8)}
+        className="grid gap-4 md:grid-cols-3"
+      >
+        {highlights.map((item) => (
+          <article key={item.title} className="surface-panel rounded-3xl p-6">
+            <h3 className="text-[28px] font-semibold text-[var(--text-primary)]">
+              {item.title}
+            </h3>
+            <p className="mt-3 text-[15px] leading-7 text-[var(--text-muted)]">
+              {item.text}
+            </p>
+          </article>
+        ))}
+      </motion.div>
     </motion.div>
   </section>
 );
