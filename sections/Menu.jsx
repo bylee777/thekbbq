@@ -6,13 +6,13 @@ import { MenuCard } from '../components';
 
 const categories = [
   'Pork',
-  'Marinated',
   'Beef',
+  'Chicken',
+  'Marinated',
   'Side For Grill',
-  'Soup and Hotpot',
   'Noodles',
+  'Soup and Hotpot',
   'Side Dishes to share',
-  'Rice',
 ];
 
 const Menu = () => {
