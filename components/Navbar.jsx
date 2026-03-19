@@ -69,6 +69,7 @@ const Navbar = () => {
 
           {/* Hamburger — mobile only */}
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
             className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] rounded-full border border-[var(--border-tone)] bg-[rgba(255,255,255,0.7)] md:hidden"
