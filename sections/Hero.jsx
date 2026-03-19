@@ -2,10 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { fadeIn, staggerContainer } from '../utils/motion';
-
-const mapUrl =
-  'https://www.google.com/maps/place/The+K+BBQ/@43.6636256,-79.4223256,17z/data=!3m1!4b1!4m6!3m5!1s0x882b348ce4e2e7c1:0x49171ea8d6d91d1!8m2!3d43.6636218!4d-79.4174547!16s%2Fg%2F11vlp63_q2';
+import { MAPS_URL } from '../constants';
 
 const highlights = [
   { label: 'Menu Selection', value: '46 curated dishes' },
@@ -40,7 +39,7 @@ const Hero = () => (
             Browse Menu
           </Link>
           <a
-            href={mapUrl}
+            href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="secondary-btn"
@@ -69,10 +68,13 @@ const Hero = () => (
       >
         <div className="absolute -inset-4 rounded-[40px] bg-[radial-gradient(circle_at_70%_20%,rgba(188,95,50,0.34),transparent_58%)] blur-2xl" />
         <div className="surface-panel relative overflow-hidden rounded-[34px] p-3">
-          <img
+          <Image
             src="/cover.png"
             alt="The KBBQ interior and tabletop spread"
+            width={800}
+            height={520}
             className="h-[520px] w-full rounded-[28px] object-cover"
+            priority
           />
 
           <div className="absolute left-8 top-8 rounded-2xl bg-[rgba(31,26,22,0.76)] px-4 py-2">

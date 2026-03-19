@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { fadeIn, staggerContainer } from '../utils/motion';
 
 const orderRules = [
@@ -42,9 +43,11 @@ const OrderAbout = () => (
           </p>
 
           <div className="mt-6 overflow-hidden rounded-3xl border border-[var(--border-tone)] bg-[rgba(255,255,255,0.88)] p-3">
-            <img
+            <Image
               src="/tableplate.png"
               alt="KBBQ table spread"
+              width={600}
+              height={240}
               className="h-[240px] w-full rounded-2xl object-cover"
             />
           </div>

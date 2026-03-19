@@ -4,8 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { footerVariants } from '../utils/motion';
-
-const mapUrl = 'https://www.google.com/maps/place/The+K+BBQ/@43.6636256,-79.4223256,17z/data=!3m1!4b1!4m6!3m5!1s0x882b348ce4e2e7c1:0x49171ea8d6d91d1!8m2!3d43.6636218!4d-79.4174547!16s%2Fg%2F11vlp63_q2';
+import { MAPS_URL } from '../constants';
 
 const Footer = () => (
   <motion.footer
@@ -28,7 +27,7 @@ const Footer = () => (
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
-              href={mapUrl}
+              href={MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="primary-btn"
@@ -46,7 +45,7 @@ const Footer = () => (
             Address
           </p>
           <a
-            href={mapUrl}
+            href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 block text-[22px] font-semibold leading-tight text-[#fff9f3] hover:text-[#ffd9ba]"
@@ -77,7 +76,7 @@ const Footer = () => (
           </p>
         </div>
         <a
-          href={mapUrl}
+          href={MAPS_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--accent-deep)] hover:text-[var(--accent)]"
