@@ -12,7 +12,7 @@ const categories = [
   'Side For Grill',
   'Noodles',
   'Soup and Hotpot',
-  'Side Dishes to share',
+  'To Share',
 ];
 
 const Menu = () => {

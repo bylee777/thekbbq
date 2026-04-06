@@ -50,7 +50,7 @@ const Footer = () => (
             rel="noopener noreferrer"
             className="mt-2 block text-[22px] font-semibold leading-tight text-[#fff9f3] hover:text-[#ffd9ba]"
           >
-            730 Bloor St W<br />
+            699 Bloor St West<br />
             Toronto, ON
           </a>
           <p className="mt-4 text-[14px] leading-6 text-[#ead8ca]">

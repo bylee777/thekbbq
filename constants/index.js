@@ -1,5 +1,53 @@
 export const MAPS_URL =
-  'https://www.google.com/maps/place/The+K+BBQ/@43.6636256,-79.4223256,17z/data=!3m1!4b1!4m6!3m5!1s0x882b348ce4e2e7c1:0x49171ea8d6d91d1!8m2!3d43.6636218!4d-79.4174547!16s%2Fg%2F11vlp63_q2';
+  'https://www.google.com/maps/search/?api=1&query=699+Bloor+St+West,+Toronto,+ON';
+
+export const complimentaryBanchan = [
+  {
+    imgUrl: '/banchan-cabbage-salad.png',
+    title: 'Cabbage Salad',
+    text: 'Crunchy shredded cabbage with our signature dressing. A refreshing palate cleanser.',
+  },
+  {
+    imgUrl: '/banchan-pickled-onions.png',
+    title: 'Pickled Onions',
+    text: 'Sliced onions in a savory soy-vinegar brine, perfect for cutting through the richness of the meat.',
+  },
+  {
+    imgUrl: '/banchan-sweet-potato-salad.png',
+    title: 'Sweet Potato Salad',
+    text: 'Naturally sweet mashed potatoes blended with creamy mayo, boiled eggs, and crunchy cucumbers for balanced texture.',
+  },
+  {
+    imgUrl: '/banchan-mung-bean-sprout-salad.png',
+    title: 'Seasoned Mung Bean Sprout Salad',
+    text: 'Crunchy mung bean sprouts tossed in toasted sesame oil and house seasoning for a deep, authentic umami finish.',
+  },
+  {
+    imgUrl: '/banchan-kimchi.png',
+    title: 'Kimchi',
+    text: 'The ultimate Korean staple: spicy, fermented cabbage packed with bold umami flavors.',
+  },
+  {
+    imgUrl: '/banchan-corn-cheese.png',
+    title: 'Corn Cheese',
+    text: 'A crowd favorite of sweet corn baked with creamy, melted cheese.',
+  },
+  {
+    imgUrl: '/banchan-mini-kimchi-pancake.png',
+    title: 'Mini Kimchi Pancake',
+    text: 'Bite-sized savory pancakes made with tangy kimchi. Soft, flavorful, and perfectly seasoned.',
+  },
+  {
+    imgUrl: '/banchan-japchae.png',
+    title: 'Japchae',
+    text: 'Stir-fried glass noodles with colorful vegetables in a sweet and savory soy-sesame sauce.',
+  },
+  {
+    imgUrl: '/banchan-lettuce-wraps.png',
+    title: 'Fresh Lettuce Wraps',
+    text: 'Crisp lettuce leaves to wrap your main dish for the perfect bite.',
+  },
+];
 
 export const menuList = [
   // ─── PORK ───────────────────────────────────────────────────────────────────
@@ -302,7 +350,7 @@ export const menuList = [
     title: 'Korean Beef Broth Soup with Glass Noodles',
     price: 15.99,
     icon: 'Beef',
-    category: 'Soup and Hotpot',
+    category: 'Noodles',
     text: 'A comforting, deep-flavored beef broth served with silky glass noodles.',
   },
   {
@@ -333,23 +381,14 @@ export const menuList = [
     text: 'A rich and spicy hotpot featuring savory beef intestines and fresh vegetables.',
   },
 
-  // ─── SIDE DISHES TO SHARE ───────────────────────────────────────────────────
+  // ─── TO SHARE ───────────────────────────────────────────────────────────────
   {
     id: 'item-35',
     imgUrl: '/steamedegg.jpg',
     title: 'Steamed Egg',
     price: 6.99,
-    category: 'Side Dishes to share',
+    category: 'To Share',
     text: 'A fluffy, cloud-like Korean steamed egg that is light, savory, and comforting.',
-  },
-  {
-    id: 'item-36',
-    imgUrl: '/rawshrimp.jpg',
-    title: 'Soy-Marinated Raw Shrimp',
-    price: 7.99,
-    icon: 'Seafood',
-    category: 'Side Dishes to share',
-    text: 'Fresh shrimp marinated in a secret savory soy sauce for a sweet, salty, and velvety bite.',
   },
   {
     id: 'item-37',
@@ -357,7 +396,7 @@ export const menuList = [
     title: 'Beef Green Onion Pancake',
     price: 19.99,
     icon: 'Beef',
-    category: 'Side Dishes to share',
+    category: 'To Share',
     text: 'A crispy Korean pancake loaded with fresh green onions and beef.',
   },
   {
@@ -366,7 +405,7 @@ export const menuList = [
     title: 'Beef Tartare',
     price: 24.99,
     icon: 'Beef',
-    category: 'Side Dishes to share',
+    category: 'To Share',
     text: 'Premium raw beef seasoned with sesame oil and garlic for a fresh, melt-in-your-mouth delicacy.',
   },
   {
@@ -375,7 +414,7 @@ export const menuList = [
     title: 'Bibimbap',
     price: 15.99,
     icon: 'Beef',
-    category: 'Side Dishes to share',
+    category: 'To Share',
     text: 'A colorful bowl of rice topped with assorted vegetables, beef, and a spicy gochujang sauce.',
   },
 ];
