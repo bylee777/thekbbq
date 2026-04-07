@@ -419,6 +419,196 @@ export const menuList = [
   },
 ];
 
+const menuItemsByTitle = Object.fromEntries(
+  menuList.map((item) => [item.title, item]),
+);
+
+const buildAyceItem = (sourceTitle, overrides = {}) => {
+  const baseItem = sourceTitle ? menuItemsByTitle[sourceTitle] || {} : {};
+
+  return {
+    imgUrl: baseItem.imgUrl,
+    icon: baseItem.icon,
+    text: baseItem.text,
+    ...overrides,
+  };
+};
+
+export const ayceMenu = {
+  label: 'Night AYCE',
+  intro: 'Choose between two combo tiers with weekday and weekend pricing. Combo B includes everything in Combo A plus four extra protein options.',
+  highlights: [
+    '2-hour dining limit',
+    'Last call 30 minutes before close',
+    'Unlimited sides included',
+  ],
+  rules: [
+    '2 hours dining limit applies to all tables.',
+    'Last call for orders is 30 minutes before your time is up.',
+    'Leftover food will incur a charge of $5 per 100g.',
+    '15% gratuity applies to groups of 6 or more.',
+    'Please notify your server of any food allergies before placing your order.',
+  ],
+  combos: [
+    {
+      id: 'combo-a',
+      name: 'Combo A',
+      weekday: 37.99,
+      weekend: 40.99,
+      blurb: 'Six core pork and beef cuts plus unlimited sides.',
+      details: 'A straightforward AYCE setup built around the classic grill staples most tables want first.',
+    },
+    {
+      id: 'combo-b',
+      name: 'Combo B',
+      weekday: 40.99,
+      weekend: 43.99,
+      blurb: 'Everything in Combo A, plus brisket, bulgogi, and chicken.',
+      details: 'Best for groups that want more variety without leaving the AYCE format.',
+    },
+  ],
+  sections: [
+    {
+      id: 'combo-a-core',
+      eyebrow: 'Base Set',
+      title: 'Combo A Core Cuts',
+      description: 'These six meats are included in both Combo A and Combo B.',
+      priceLabel: 'Included',
+      items: [
+        buildAyceItem('Pork Belly', {
+          id: 'ayce-a-1',
+          category: 'Combo A',
+          title: 'Pork Belly',
+        }),
+        buildAyceItem('Thick Pork Belly', {
+          id: 'ayce-a-2',
+          category: 'Combo A',
+          title: 'Thick Pork Belly',
+        }),
+        buildAyceItem('Thinly Sliced Pork Belly', {
+          id: 'ayce-a-3',
+          category: 'Combo A',
+          title: 'Thin Sliced Pork Belly',
+        }),
+        buildAyceItem('Pork Shoulder', {
+          id: 'ayce-a-4',
+          category: 'Combo A',
+          title: 'Pork Shoulder',
+        }),
+        buildAyceItem('Soy Sauce Marinated Pork', {
+          id: 'ayce-a-5',
+          category: 'Combo A',
+          title: 'Marinated Pork',
+        }),
+        buildAyceItem('Thinly Sliced Beef Short Plate', {
+          id: 'ayce-a-6',
+          category: 'Combo A',
+          title: 'Thin Sliced Beef Short Plate',
+        }),
+      ],
+    },
+    {
+      id: 'combo-b-adds',
+      eyebrow: 'Upgrade Set',
+      title: 'Combo B Adds',
+      description: 'Combo B includes the full Combo A selection and adds these four extra proteins.',
+      priceLabel: 'Combo B',
+      items: [
+        buildAyceItem('Thinly Sliced Beef Brisket', {
+          id: 'ayce-b-1',
+          category: 'Combo B',
+          title: 'Thin Sliced Beef Brisket',
+        }),
+        buildAyceItem('Beef Bulgogi', {
+          id: 'ayce-b-2',
+          category: 'Combo B',
+          title: 'Beef Bulgogi',
+        }),
+        buildAyceItem('Soy-Marinated Chicken', {
+          id: 'ayce-b-3',
+          category: 'Combo B',
+          title: 'Soy Marinated Chicken',
+        }),
+        buildAyceItem('Sweet & Spicy Chicken', {
+          id: 'ayce-b-4',
+          category: 'Combo B',
+          title: 'Spicy Chicken',
+        }),
+      ],
+    },
+    {
+      id: 'unlimited-sides',
+      eyebrow: 'AYCE Sides',
+      title: 'Unlimited Sides',
+      description: 'These dishes are available throughout AYCE service for both combo tiers.',
+      priceLabel: 'Unlimited',
+      items: [
+        buildAyceItem('Assorted Mushrooms', {
+          id: 'ayce-s-1',
+          category: 'Unlimited',
+          title: 'Assorted Mushroom',
+        }),
+        buildAyceItem('Pork Spicy Tofu Stew', {
+          id: 'ayce-s-2',
+          category: 'Unlimited',
+          title: 'Pork Spicy Tofu Stew',
+        }),
+        buildAyceItem('Spicy Pork Skin Noodles', {
+          id: 'ayce-s-3',
+          category: 'Unlimited',
+          title: 'Spicy Pork Skin Noodles',
+        }),
+        buildAyceItem('Korean Beef Broth Soup with Glass Noodles', {
+          id: 'ayce-s-4',
+          category: 'Unlimited',
+          title: 'Beef Broth Soup with Noodle',
+        }),
+        buildAyceItem('Vegan Combo', {
+          id: 'ayce-s-5',
+          category: 'Unlimited',
+          title: 'Vegan Combo',
+        }),
+        buildAyceItem('Steamed Egg', {
+          id: 'ayce-s-6',
+          category: 'Unlimited',
+          title: 'Steamed Egg',
+        }),
+        buildAyceItem('Spicy Mixed Noodles', {
+          id: 'ayce-s-7',
+          category: 'Unlimited',
+          title: 'Spicy Mixed Noodles',
+        }),
+        buildAyceItem('Bibimbap', {
+          id: 'ayce-s-8',
+          category: 'Unlimited',
+          title: 'Bibimbap',
+        }),
+        buildAyceItem('Squid', {
+          id: 'ayce-s-9',
+          category: 'Unlimited',
+          title: 'Squid',
+        }),
+        buildAyceItem('Beef Green Onion Pancake', {
+          id: 'ayce-s-10',
+          category: 'Unlimited',
+          title: 'Green Onion Pancake',
+        }),
+        buildAyceItem('Cold Noodles', {
+          id: 'ayce-s-11',
+          category: 'Unlimited',
+          title: 'Cold Noodles',
+        }),
+        buildAyceItem(null, {
+          id: 'ayce-s-12',
+          category: 'Unlimited',
+          title: 'Plain Rice',
+          text: 'A simple bowl of rice to round out the table and pair with grilled meats, soups, and sauces.',
+        }),
+      ],
+    },
+  ],
+};
+
 export const socials = [
   {
     name: 'twitter',
