@@ -1,31 +1,19 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { footerVariants } from '../utils/motion';
 import { MAPS_URL } from '../constants';
 
 const Footer = () => (
-  <motion.footer
-    variants={footerVariants}
-    initial="hidden"
-    whileInView="show"
-    className="site-shell pb-10 pt-8 sm:pb-12"
-  >
-    <div className="surface-panel overflow-hidden rounded-[34px] bg-[linear-gradient(150deg,rgba(255,255,255,0.92)_0%,rgba(241,223,204,0.86)_100%)] p-7 sm:p-10">
-      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+  <footer className="mt-8 border-t border-[var(--border-tone)] bg-[var(--bg-raised)]">
+    <div className="site-shell py-16 sm:py-20">
+      <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
         <div>
-          <span className="section-tag">Visit The KBBQ</span>
-          <h4 className="mt-4 text-[40px] font-semibold leading-[1.05] text-[var(--text-primary)] sm:text-[54px]">
-            Join us for your next Korean BBQ night.
-          </h4>
-          <p className="mt-4 max-w-[54ch] text-[15px] leading-7 text-[var(--text-muted)] sm:text-[16px]">
-            Planning a date, family gathering, or team dinner? Explore our full
-            menu and visit us in Toronto Koreatown for an authentic tabletop
-            experience.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <span className="section-tag">Visit Us</span>
+          <h2 className="section-heading mt-4 max-w-[14ch]">
+            Your next BBQ night starts here.
+          </h2>
+          <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={MAPS_URL}
               target="_blank"
@@ -33,59 +21,56 @@ const Footer = () => (
               className="primary-btn"
             >
               Open in Maps
+              <span aria-hidden="true">→</span>
             </a>
             <Link href="/menuPage#menu" className="secondary-btn">
-              Explore Menu
+              View Menu
             </Link>
           </div>
         </div>
 
-        <aside className="rounded-3xl border border-[var(--border-tone)] bg-[rgba(31,26,22,0.9)] p-6 text-[#f9ede1] shadow-[var(--shadow-lift)]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#d5b79f]">
-            Address
-          </p>
-          <a
-            href={MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 block text-[22px] font-semibold leading-tight text-[#fff9f3] hover:text-[#ffd9ba]"
-          >
-            699 Bloor St West<br />
-            Toronto, ON
-          </a>
-          <p className="mt-4 text-[14px] leading-6 text-[#ead8ca]">
+        <div className="space-y-6">
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+              Address
+            </p>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display mt-2 block text-[26px] font-bold leading-tight text-[var(--text-primary)] hover:text-[var(--accent-light)]"
+            >
+              699 Bloor St West
+              <br />
+              Toronto, ON
+            </a>
+          </div>
+          <p className="max-w-[40ch] text-[14px] leading-6 text-[var(--text-muted)]">
             Business hours can change seasonally. Please check our Google
             listing for live hours.
           </p>
-        </aside>
+        </div>
       </div>
 
-      <div className="my-8 divider-line" />
-
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border-tone)] pt-6">
         <div className="flex items-center gap-3">
           <Image
             src="/logo.png"
             alt="The KBBQ logo"
-            width={44}
-            height={44}
-            className="rounded-full object-contain"
+            width={32}
+            height={32}
+            className="rounded-full object-cover"
           />
-          <p className="text-[14px] text-[var(--text-muted)]">
+          <p className="text-[13px] text-[var(--text-muted)]">
             © {new Date().getFullYear()} The KBBQ. All rights reserved.
           </p>
         </div>
-        <a
-          href={MAPS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--accent-deep)] hover:text-[var(--accent)]"
-        >
-          Toronto, Ontario
-        </a>
+        <p className="text-[13px] font-semibold text-[var(--text-muted)]">
+          Koreatown, Toronto
+        </p>
       </div>
     </div>
-  </motion.footer>
+  </footer>
 );
 
 export default Footer;

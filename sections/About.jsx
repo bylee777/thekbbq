@@ -5,59 +5,57 @@ import { fadeIn, staggerContainer } from '../utils/motion';
 
 const highlights = [
   {
-    title: 'Premium Ingredients',
-    text: 'We source quality pork, beef, and specialty cuts designed for tabletop grilling and bold Korean flavors.',
+    title: 'House marinades',
+    text: 'Garlic, soy, and sweet & spicy marinades made in-house for our kalbi, bulgogi, pork, and chicken.',
   },
   {
-    title: 'Balanced Menu Design',
-    text: 'Our lineup pairs grilled meats with noodles, hot pots, and classic sides so every table can build a complete meal.',
+    title: 'Grilled at your table',
+    text: 'Every table has its own grill. Order in rounds, cook at your own pace, and share everything.',
   },
   {
-    title: 'Group-Friendly Service',
-    text: 'We optimize for shared dining with efficient pacing, helpful staff support, and a comfortable atmosphere.',
+    title: 'Built for groups',
+    text: 'From date night to team dinners, our AYCE and eel courses are designed for the whole table.',
   },
 ];
 
 const About = () => (
-  <section id="about" className="site-shell section-wrap pt-6 sm:pt-10">
+  <section id="about" className="site-shell section-wrap scroll-mt-20">
     <motion.div
       variants={staggerContainer(0.12, 0)}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
-      className="space-y-8"
+      className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20"
     >
-      <motion.div
-        variants={fadeIn('up', 'tween', 0.1, 0.8)}
-        className="max-w-[760px] space-y-4"
-      >
-        <span className="section-tag">About The KBBQ</span>
-        <h2 className="display-heading max-w-[20ch] text-[36px] sm:text-[50px] lg:text-[56px]">
-          A focused menu built for real Korean BBQ dining
+      <motion.div variants={fadeIn('up', 'tween', 0.1, 0.8)} className="space-y-5">
+        <span className="section-tag">About Us</span>
+        <h2 className="section-heading max-w-[14ch]">
+          Real Korean BBQ, done the simple way.
         </h2>
-        <span className="body-copy block">
-          The KBBQ combines house marinades, premium cuts, and Korean comfort
-          classics into a polished group-dining experience. Our approach is
-          simple: great ingredients, strong execution, and hospitality that
-          makes every table feel taken care of.
-        </span>
+        <p className="body-copy max-w-[52ch]">
+          Good meat, strong marinades, and a hot grill. The KBBQ keeps the
+          focus on what matters at a Korean BBQ table — and takes care of
+          everything around it.
+        </p>
       </motion.div>
 
-      <motion.div
-        variants={fadeIn('up', 'tween', 0.2, 0.8)}
-        className="grid gap-4 md:grid-cols-3"
-      >
-        {highlights.map((item) => (
-          <article key={item.title} className="surface-panel rounded-3xl p-6">
-            <h3 className="text-[28px] font-semibold text-[var(--text-primary)]">
-              {item.title}
-            </h3>
-            <p className="mt-3 text-[15px] leading-7 text-[var(--text-muted)]">
-              {item.text}
-            </p>
-          </article>
+      <motion.ol variants={fadeIn('up', 'tween', 0.2, 0.8)} className="divide-y divide-[var(--border-tone)] border-y border-[var(--border-tone)]">
+        {highlights.map((item, index) => (
+          <li key={item.title} className="grid grid-cols-[48px_1fr] gap-4 py-7 sm:grid-cols-[72px_1fr]">
+            <span className="font-display text-[28px] font-bold leading-none text-[var(--accent)] sm:text-[36px]">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <div>
+              <h3 className="text-[22px] leading-tight text-[var(--text-primary)] sm:text-[26px]">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-[15px] leading-7 text-[var(--text-muted)]">
+                {item.text}
+              </p>
+            </div>
+          </li>
         ))}
-      </motion.div>
+      </motion.ol>
     </motion.div>
   </section>
 );

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Navbar } from '../components';
 
 const NotFound = () => (
-  <div className="min-h-screen overflow-hidden">
+  <div className="min-h-screen overflow-x-clip">
     <Navbar />
     <main className="site-shell section-wrap flex flex-col items-center justify-center py-32 text-center">
       <span className="section-tag">404</span>

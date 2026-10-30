@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps }) => (
       <meta property="og:type" content="restaurant" />
       <meta property="og:title" content="The KBBQ – Korean BBQ in Toronto" />
       <meta property="og:description" content="Authentic Korean BBQ in Toronto's Koreatown. Signature marinades, premium cuts, and warm table-side service at 699 Bloor St West." />
-      <meta property="og:image" content="/cover.png" />
+      <meta property="og:image" content="/menu/la-short-rib.jpg" />
       <meta property="og:url" content="https://thekbbq.ca" />
       <meta property="og:site_name" content="The KBBQ" />
 
@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }) => (
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="The KBBQ – Korean BBQ in Toronto" />
       <meta name="twitter:description" content="Authentic Korean BBQ in Toronto's Koreatown. Signature marinades, premium cuts, and warm table-side service at 699 Bloor St West." />
-      <meta name="twitter:image" content="/cover.png" />
+      <meta name="twitter:image" content="/menu/la-short-rib.jpg" />
     </Head>
     <Component {...pageProps} />
   </>

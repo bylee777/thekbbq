@@ -1,378 +1,242 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { ayceMenu, menuList } from '../constants';
-import { MenuCard } from '../components';
+import Image from 'next/image';
+import { aLaCarteMenu, ayceMenu, eelMenu } from '../constants';
+import { BrushMark } from '../components';
 
-const aLaCarteCategories = [
-  'Pork',
-  'Beef',
-  'Chicken',
-  'Marinated',
-  'Side For Grill',
-  'Noodles',
-  'Soup and Hotpot',
-  'To Share',
+const formatPrice = (price) => `$${price.toFixed(2)}`;
+
+const orderRules = [
+  'Minimum order is 2 servings of meat or vegan set per table.',
+  'One order equals one serving.',
+  'Every BBQ table comes with lettuce wraps, corn cheese, chilled sides, and ssamjang, salt & sesame oil.',
 ];
 
-const menuModes = [
-  {
-    id: 'a-la-carte',
-    label: 'A La Carte',
-    text: 'Individual cuts, noodles, soups, and share plates priced separately.',
-  },
-  {
-    id: 'all-you-can-eat',
-    label: 'All You Can Eat',
-    text: 'Night AYCE combos with weekday and weekend pricing.',
-  },
-];
+const PosterHeading = ({ eyebrow, title }) => (
+  <div className="relative mb-10 pl-6 pt-4 sm:mb-14 sm:pl-8">
+    <BrushMark />
+    {eyebrow && (
+      <p className="relative text-[15px] font-bold uppercase tracking-[0.12em] text-[var(--accent-light)] sm:text-[18px]">
+        {eyebrow}
+      </p>
+    )}
+    <p className="font-display relative mt-1 text-[44px] font-extrabold uppercase leading-none text-[var(--text-primary)] sm:text-[60px]">
+      {title}
+    </p>
+  </div>
+);
 
-const Menu = () => {
-  const [menuMode, setMenuMode] = useState(menuModes[0].id);
-  const [activeCategory, setActiveCategory] = useState(aLaCarteCategories[0]);
-  const [query, setQuery] = useState('');
+const Poster = ({ id, children, className = '' }) => (
+  <article
+    id={id}
+    className={`scroll-mt-20 overflow-hidden rounded-[6px] border border-[rgba(255,255,255,0.06)] bg-[#141110] px-5 py-10 shadow-[0_30px_80px_rgba(0,0,0,0.55)] [background-image:var(--texture)] sm:px-12 sm:py-14 ${className}`}
+  >
+    {children}
+  </article>
+);
 
-  const filteredItems = useMemo(() => {
-    const search = query.trim().toLowerCase();
-
-    return menuList.filter((item) => {
-      const itemCategories = Array.isArray(item.category)
-        ? item.category
-        : [item.category];
-      const categoryMatches = itemCategories.includes(activeCategory);
-
-      if (!categoryMatches) {
-        return false;
-      }
-
-      if (!search) {
-        return true;
-      }
-
-      return `${item.title} ${item.text || ''}`.toLowerCase().includes(search);
-    });
-  }, [activeCategory, query]);
-
-  const menuDescription = menuMode === 'a-la-carte'
-    ? 'Browse individual cuts, noodles, soups, and share plates by category.'
-    : 'Compare combo tiers, review AYCE house rules, and see exactly what is included in each combo.';
-  const comboACoreSection = ayceMenu.sections.find((section) => section.id === 'combo-a-core');
-  const comboBAddsSection = ayceMenu.sections.find((section) => section.id === 'combo-b-adds');
-  const unlimitedSidesSection = ayceMenu.sections.find((section) => section.id === 'unlimited-sides');
-
-  return (
-    <section id="menu" className="site-shell section-wrap pt-8 sm:pt-10">
-      <div className="space-y-7">
-        <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
-          <div className="space-y-3">
-            <span className="section-tag">Menu</span>
-            <h2 className="text-[40px] font-semibold leading-[1.05] text-[var(--text-primary)] sm:text-[52px]">
-              Choose the menu format that fits your table.
-            </h2>
-            <p className="max-w-[64ch] text-[15px] leading-7 text-[var(--text-muted)]">
-              {menuDescription}
-            </p>
-          </div>
-
-          <div className="w-full xl:max-w-[520px]">
-            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-              Menu Setting
-            </label>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {menuModes.map((mode) => {
-                const isActive = menuMode === mode.id;
-
-                return (
-                  <button
-                    key={mode.id}
-                    type="button"
-                    onClick={() => setMenuMode(mode.id)}
-                    className={`rounded-[28px] border p-4 text-left transition ${
-                      isActive
-                        ? 'border-transparent bg-[rgba(31,26,22,0.94)] text-[#fff8f2] shadow-[var(--shadow-lift)]'
-                        : 'border-[var(--border-tone)] bg-[rgba(255,255,255,0.82)] text-[var(--text-primary)]'
-                    }`}
-                  >
-                    <p
-                      className={`text-[12px] font-semibold uppercase tracking-[0.12em] ${
-                        isActive ? 'text-[#f5d8c0]' : 'text-[var(--accent-deep)]'
-                      }`}
-                    >
-                      {mode.label}
-                    </p>
-                    <p
-                      className={`mt-2 text-[14px] leading-6 ${
-                        isActive ? 'text-[#f7ebe0]' : 'text-[var(--text-muted)]'
-                      }`}
-                    >
-                      {mode.text}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+const DishRow = ({ title, price, imgUrl, flip }) => (
+  <li className="grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-4 sm:gap-6">
+    <div className={`relative aspect-square ${flip ? 'order-2' : ''}`}>
+      {imgUrl ? (
+        <div className="absolute inset-0 overflow-hidden rounded-full shadow-[0_18px_40px_rgba(0,0,0,0.6)]">
+          <Image
+            src={imgUrl}
+            alt={title}
+            fill
+            className="scale-[1.08] object-cover"
+            sizes="(max-width: 1024px) 50vw, 240px"
+            loading="lazy"
+          />
         </div>
+      ) : (
+        <div className="absolute inset-[12%] rounded-full border border-dashed border-[var(--border-strong)]" />
+      )}
+    </div>
+    <div className={flip ? 'order-1 text-right' : ''}>
+      <p className="font-display text-[24px] font-bold leading-[1.02] text-[var(--text-primary)] sm:text-[32px]">
+        {title}
+      </p>
+      {typeof price === 'number' && (
+        <p className="font-display mt-2 text-[22px] font-bold leading-none text-[var(--accent)] sm:text-[28px]">
+          {formatPrice(price)}
+        </p>
+      )}
+    </div>
+  </li>
+);
 
-        {menuMode === 'a-la-carte' ? (
-          <>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div className="max-w-[54ch]">
-                <p className="text-[14px] leading-6 text-[var(--text-muted)]">
-                  Filter by category and search by name to quickly find your
-                  ideal grill set, noodle dish, or shared side.
-                </p>
-              </div>
+// Two mirrored columns on desktop (photos on the outer edges), a zig-zag on phones.
+const DishList = ({ items }) => (
+  <ul className="grid gap-x-12 gap-y-8 sm:gap-y-10 lg:grid-cols-2">
+    {items.map((item, index) => (
+      <DishRow key={item.title} {...item} flip={index % 2 === 1} />
+    ))}
+  </ul>
+);
 
-              <div className="w-full sm:w-[310px]">
-                <label
-                  htmlFor="menu-search"
-                  className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]"
-                >
-                  Search Dishes
-                </label>
-                <input
-                  id="menu-search"
-                  type="text"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Try pork belly, hot pot, bibimbap..."
-                  className="w-full rounded-full border border-[var(--border-tone)] bg-[rgba(255,255,255,0.82)] px-4 py-3 text-[14px] text-[var(--text-primary)] outline-none ring-0 placeholder:text-[rgba(98,84,71,0.8)] focus:border-[rgba(142,69,34,0.6)]"
-                />
-              </div>
-            </div>
+const FinePrint = ({ items, className = '' }) => (
+  <ul className={`grid gap-x-8 gap-y-2 rounded-[4px] bg-[#f7eee6] p-5 text-[13px] leading-5 text-[#2a1d14] sm:grid-cols-2 sm:p-6 ${className}`}>
+    {items.map((item) => (
+      <li key={item} className="flex gap-2">
+        <span aria-hidden="true">•</span>
+        {item}
+      </li>
+    ))}
+  </ul>
+);
 
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-              {aLaCarteCategories.map((category) => (
-                <button
-                  key={category}
-                  type="button"
-                  onClick={() => setActiveCategory(category)}
-                  className={`chip-btn whitespace-nowrap ${
-                    activeCategory === category ? 'active' : ''
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            {filteredItems.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {filteredItems.map((item) => (
-                  <MenuCard key={item.id} {...item} />
-                ))}
-              </div>
-            ) : (
-              <div className="surface-panel rounded-3xl p-8 text-center">
-                <p className="text-[15px] leading-7 text-[var(--text-muted)]">
-                  No dishes matched your search in{' '}
-                  <strong>{activeCategory}</strong>.
-                </p>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="surface-panel rounded-[34px] p-6 sm:p-8 lg:p-10">
-            <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">
-                  {ayceMenu.label}
-                </p>
-                <h3 className="mt-3 text-[38px] font-semibold leading-[1.02] text-[var(--text-primary)] sm:text-[44px]">
-                  Simple dinner AYCE pricing.
-                </h3>
-                <p className="mt-4 max-w-[58ch] text-[15px] leading-7 text-[var(--text-muted)]">
-                  {ayceMenu.intro}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 xl:justify-end">
-                {ayceMenu.highlights.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[rgba(142,69,34,0.18)] bg-[rgba(188,95,50,0.08)] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--accent-deep)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="my-8 divider-line" />
-
-            <div className="grid gap-4 lg:grid-cols-2">
-              {ayceMenu.combos.map((combo, index) => {
-                const isFeatured = index === ayceMenu.combos.length - 1;
-
-                return (
-                  <article
-                    key={combo.id}
-                    className={`rounded-[30px] border p-6 ${
-                      isFeatured
-                        ? 'border-[rgba(31,26,22,0.1)] bg-[rgba(31,26,22,0.94)] text-[#fff8f2]'
-                        : 'border-[var(--border-tone)] bg-[rgba(255,255,255,0.92)] text-[var(--text-primary)]'
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p
-                          className={`text-[11px] font-semibold uppercase tracking-[0.16em] ${
-                            isFeatured ? 'text-[#e8c9b0]' : 'text-[var(--accent-deep)]'
-                          }`}
-                        >
-                          Combo Tier
-                        </p>
-                        <h4 className="mt-3 text-[34px] font-semibold leading-none">
-                          {combo.name}
-                        </h4>
-                      </div>
-                      <span
-                        className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] ${
-                          isFeatured
-                            ? 'bg-[rgba(255,255,255,0.1)] text-[#fff1e4]'
-                            : 'bg-[rgba(188,95,50,0.12)] text-[var(--accent-deep)]'
-                        }`}
-                      >
-                        {isFeatured ? 'Combo A + Extras' : 'Core Set'}
-                      </span>
-                    </div>
-
-                    <p
-                      className={`mt-4 text-[14px] leading-6 ${
-                        isFeatured ? 'text-[#f0ddd0]' : 'text-[var(--text-muted)]'
-                      }`}
-                    >
-                      {combo.blurb}
-                    </p>
-
-                    <dl className="mt-6 space-y-3 border-t border-[rgba(156,124,100,0.24)] pt-5">
-                      <div className="flex items-end justify-between gap-4">
-                        <dt
-                          className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${
-                            isFeatured ? 'text-[#e8c9b0]' : 'text-[var(--text-muted)]'
-                          }`}
-                        >
-                          Weekday
-                        </dt>
-                        <dd className="text-[30px] font-semibold leading-none">
-                          ${combo.weekday.toFixed(2)}
-                        </dd>
-                      </div>
-                      <div className="flex items-end justify-between gap-4">
-                        <dt
-                          className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${
-                            isFeatured ? 'text-[#e8c9b0]' : 'text-[var(--text-muted)]'
-                          }`}
-                        >
-                          Weekend
-                        </dt>
-                        <dd className="text-[30px] font-semibold leading-none">
-                          ${combo.weekend.toFixed(2)}
-                        </dd>
-                      </div>
-                    </dl>
-                  </article>
-                );
-              })}
-            </div>
-
-            <div className="my-8 divider-line" />
-
-            <div className="grid gap-8 xl:grid-cols-[0.9fr_0.9fr_1.2fr]">
-              <section>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">
-                  Included in Both
-                </p>
-                <h4 className="mt-3 text-[30px] font-semibold leading-[1.02] text-[var(--text-primary)]">
-                  Combo A Core Cuts
-                </h4>
-                <ul className="mt-5 border-y border-[rgba(156,124,100,0.24)]">
-                  {comboACoreSection.items.map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex items-center justify-between gap-4 border-b border-[rgba(156,124,100,0.18)] py-3 last:border-b-0"
-                    >
-                      <span className="text-[15px] leading-6 text-[var(--text-primary)]">
-                        {item.title}
-                      </span>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-deep)]">
-                        Included
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">
-                  Combo B Extras
-                </p>
-                <h4 className="mt-3 text-[30px] font-semibold leading-[1.02] text-[var(--text-primary)]">
-                  Additional Proteins
-                </h4>
-                <ul className="mt-5 border-y border-[rgba(156,124,100,0.24)]">
-                  {comboBAddsSection.items.map((item) => (
-                    <li
-                      key={item.id}
-                      className="flex items-center justify-between gap-4 border-b border-[rgba(156,124,100,0.18)] py-3 last:border-b-0"
-                    >
-                      <span className="text-[15px] leading-6 text-[var(--text-primary)]">
-                        {item.title}
-                      </span>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-deep)]">
-                        Combo B
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">
-                  Unlimited Sides
-                </p>
-                <h4 className="mt-3 text-[30px] font-semibold leading-[1.02] text-[var(--text-primary)]">
-                  AYCE Side Menu
-                </h4>
-                <div className="mt-5 grid gap-x-6 gap-y-3 border-y border-[rgba(156,124,100,0.24)] py-4 sm:grid-cols-2">
-                  {unlimitedSidesSection.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="border-b border-[rgba(156,124,100,0.14)] pb-3 last:border-b-0"
-                    >
-                      <span className="text-[15px] leading-6 text-[var(--text-primary)]">
-                        {item.title}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-            <div className="my-8 divider-line" />
-
-            <section>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">
-                Rules
-              </p>
-              <div className="mt-4 grid gap-x-8 gap-y-3 md:grid-cols-2">
-                {ayceMenu.rules.map((rule) => (
-                  <p
-                    key={rule}
-                    className="text-[14px] leading-6 text-[var(--text-muted)]"
-                  >
-                    {rule}
-                  </p>
-                ))}
-              </div>
-            </section>
-          </div>
-        )}
+const Menu = () => (
+  <section id="menu" className="mx-auto w-full max-w-[1080px] scroll-mt-20 space-y-6 px-3 pb-20 pt-6 sm:space-y-10 sm:px-8 sm:pt-10">
+    {/* ─── AYCE COVER ───────────────────────────────────────────────────── */}
+    <article
+      id="ayce"
+      className="poster-orange scroll-mt-20 overflow-hidden rounded-[6px] px-5 pb-6 pt-10 text-white shadow-[0_30px_80px_rgba(0,0,0,0.55)] sm:px-12 sm:pb-10 sm:pt-14"
+    >
+      <div className="text-center">
+        <h1 className="font-display text-[56px] font-extrabold leading-[0.9] sm:text-[104px]">
+          All You Can Eat
+        </h1>
+        <p className="font-display mt-3 text-[18px] font-bold uppercase tracking-[0.3em] sm:text-[22px]">
+          The KBBQ · Toronto
+        </p>
       </div>
-    </section>
-  );
-};
+
+      <div className="relative mx-auto mt-6 aspect-[1200/909] w-full max-w-[640px] sm:mt-8">
+        <Image
+          src="/menu/ayce-hero.png"
+          alt="Beef short plate, seasoned beef, and pork belly on brass plates"
+          fill
+          className="object-contain"
+          sizes="(max-width: 640px) 92vw, 640px"
+          priority
+        />
+      </div>
+
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:gap-10">
+        {ayceMenu.pricing.map((period) => (
+          <div key={period.days} className="text-center">
+            <p className="font-display min-h-[2.2em] text-[19px] font-bold uppercase leading-[1.1] sm:min-h-0 sm:text-[28px]">
+              {period.days}
+            </p>
+            <dl className="mx-auto mt-4 max-w-[260px] space-y-2 text-left">
+              {period.rows.map((row) => (
+                <div key={row.label} className="flex items-center justify-between gap-2 border-b border-[rgba(255,255,255,0.3)] pb-2">
+                  <dt className="font-display text-[19px] font-semibold uppercase leading-none sm:text-[24px]">
+                    {row.label}
+                    {row.age && (
+                      <span className="mt-1 block text-[12px] font-medium normal-case leading-none opacity-85 sm:text-[14px]">
+                        {row.age}
+                      </span>
+                    )}
+                  </dt>
+                  <dd className="font-display text-[24px] font-extrabold leading-none sm:text-[36px]">
+                    {formatPrice(row.price)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      <FinePrint items={ayceMenu.rules} className="mt-8 sm:mt-10" />
+    </article>
+
+    {/* ─── AYCE POSTERS ─────────────────────────────────────────────────── */}
+    {ayceMenu.categories.map((category) => (
+      <Poster key={category.id} id={category.id}>
+        <PosterHeading eyebrow="All You Can Eat" title={category.title} />
+        <DishList items={category.items} />
+      </Poster>
+    ))}
+
+    {/* ─── EEL COURSE ───────────────────────────────────────────────────── */}
+    <Poster id="eel">
+      <PosterHeading title={eelMenu.label} />
+      <p className="-mt-4 mb-10 max-w-[52ch] text-[15px] leading-7 text-[var(--text-muted)] sm:-mt-6">
+        {eelMenu.intro}
+      </p>
+
+      <div className="space-y-12">
+        {eelMenu.courses.map((course, index) => (
+          <div
+            key={course.id}
+            className="grid items-center gap-6 md:grid-cols-[1.2fr_1fr] md:gap-10"
+          >
+            <div className={`relative aspect-[4/3] overflow-hidden rounded-[6px] ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+              <Image
+                src={course.imgUrl}
+                alt={`Eel ${course.name}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 560px"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <p className="font-display text-[40px] font-extrabold uppercase leading-none text-[var(--text-primary)] sm:text-[52px]">
+                {course.name}
+              </p>
+              <p className="font-display mt-1 text-[18px] font-semibold uppercase text-[var(--text-muted)]">
+                {course.serves}
+              </p>
+              {typeof course.price === 'number' && (
+                <p className="font-display mt-3 text-[32px] font-extrabold leading-none text-[var(--accent)]">
+                  {formatPrice(course.price)}
+                </p>
+              )}
+              <p className="mt-4 text-[15px] leading-7 text-[var(--text-primary)]">
+                {course.items.join(' + ')}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-14 border-t border-[var(--border-tone)] pt-10">
+        <p className="font-display text-[26px] font-bold uppercase text-[var(--text-primary)] sm:text-[32px]">
+          How to Grill Eel Perfectly
+        </p>
+        <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {eelMenu.grillSteps.map((step, index) => (
+            <li key={step.title}>
+              <p className="font-display text-[40px] font-extrabold leading-none text-[var(--accent)]">
+                {String(index + 1).padStart(2, '0')}
+              </p>
+              <p className="font-display mt-2 text-[20px] font-bold uppercase leading-tight text-[var(--text-primary)]">
+                {step.title}
+              </p>
+              <p className="mt-1 text-[14px] leading-6 text-[var(--text-muted)]">
+                {step.text}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Poster>
+
+    {/* ─── À LA CARTE ───────────────────────────────────────────────────── */}
+    <article
+      id="a-la-carte"
+      className="poster-orange scroll-mt-20 overflow-hidden rounded-[6px] px-5 py-10 text-center text-white shadow-[0_30px_80px_rgba(0,0,0,0.55)] sm:px-12 sm:py-14"
+    >
+      <h2 className="font-display text-[56px] font-extrabold leading-[0.9] sm:text-[96px]">
+        À La Carte
+      </h2>
+      <p className="font-display mt-3 text-[18px] font-bold uppercase tracking-[0.3em] sm:text-[22px]">
+        Individual Cuts &amp; Dishes
+      </p>
+      <FinePrint items={orderRules} className="mt-8 text-left sm:mt-10" />
+    </article>
+
+    {aLaCarteMenu.map((category) => (
+      <Poster key={category.id} id={category.id}>
+        <PosterHeading eyebrow="À La Carte" title={category.title} />
+        <DishList items={category.items} />
+      </Poster>
+    ))}
+  </section>
+);
 
 export default Menu;

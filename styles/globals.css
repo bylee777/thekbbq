@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,21 +13,29 @@
 
 :root {
   --font-body: 'Manrope', sans-serif;
-  --font-display: 'Cormorant Garamond', serif;
+  --font-display: 'Barlow Condensed', sans-serif;
 
-  --bg-main: #efe3d6;
-  --bg-tint: #f7f1e8;
-  --bg-deep: #1f1a16;
-  --surface: rgba(255, 251, 246, 0.76);
-  --surface-strong: rgba(255, 255, 255, 0.88);
-  --border-tone: rgba(156, 124, 100, 0.34);
-  --text-primary: #211810;
-  --text-muted: #625447;
-  --accent: #bc5f32;
-  --accent-deep: #8e4522;
-  --accent-soft: #f2dfcc;
-  --shadow-soft: 0 20px 45px rgba(56, 30, 13, 0.12);
-  --shadow-lift: 0 28px 80px rgba(56, 30, 13, 0.18);
+  --bg-main: #0e0b09;
+  --bg-raised: #161210;
+  --surface: #1b1613;
+  --surface-strong: #221b17;
+  --border-tone: rgba(255, 236, 220, 0.1);
+  --border-strong: rgba(255, 236, 220, 0.18);
+  --text-primary: #f7eee6;
+  --text-muted: #a9998b;
+  --accent: #f26a21;
+  --accent-deep: #d4560f;
+  --accent-light: #ff9a5c;
+  --accent-soft: rgba(242, 106, 33, 0.12);
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+  /* Fine grain, like a printed menu on dark stone */
+  --texture:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.04), transparent 60%);
+
+  color-scheme: dark;
 }
 
 html,
@@ -38,10 +46,9 @@ body {
 body {
   font-family: var(--font-body);
   color: var(--text-primary);
-  background:
-    radial-gradient(circle at 12% -8%, rgba(245, 215, 183, 0.65) 0, rgba(245, 215, 183, 0) 38%),
-    radial-gradient(circle at 92% 5%, rgba(187, 125, 84, 0.22) 0, rgba(187, 125, 84, 0) 32%),
-    linear-gradient(180deg, var(--bg-tint) 0%, var(--bg-main) 55%, #e8d9c8 100%);
+  background-color: var(--bg-main);
+  background-image: var(--texture);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -49,7 +56,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
 }
 
 a,
@@ -58,33 +67,44 @@ button {
 }
 
 ::selection {
-  background: rgba(188, 95, 50, 0.2);
+  background: rgba(242, 106, 33, 0.35);
 }
 
 @layer components {
   .site-shell {
-    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-8;
   }
 
   .section-wrap {
-    @apply py-14 sm:py-20;
+    @apply py-16 sm:py-24;
   }
 
   .surface-panel {
-    background: var(--surface-strong);
+    background: var(--surface);
     border: 1px solid var(--border-tone);
-    box-shadow: var(--shadow-soft);
   }
 
   .section-tag {
-    @apply inline-flex items-center rounded-full px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.2em];
-    color: var(--accent-deep);
-    background: var(--accent-soft);
+    @apply inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.2em];
+    color: var(--accent);
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
   }
 
   .display-heading {
-    @apply text-[40px] leading-[1.05] sm:text-[54px] lg:text-[66px];
-    color: #20150c;
+    @apply text-[60px] leading-[0.9] sm:text-[84px] lg:text-[108px];
+    color: var(--text-primary);
+  }
+
+  .section-heading {
+    @apply text-[44px] leading-[0.95] sm:text-[60px] lg:text-[72px];
+    color: var(--text-primary);
   }
 
   .body-copy {
@@ -93,55 +113,48 @@ button {
   }
 
   .primary-btn {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.12em];
-    color: #fff8f1;
-    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-    box-shadow: 0 14px 30px rgba(130, 64, 33, 0.28);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-bold;
+    color: #140b05;
+    background: var(--accent);
   }
 
   .primary-btn:hover {
+    background: var(--accent-light);
     transform: translateY(-1px);
-    box-shadow: 0 20px 38px rgba(130, 64, 33, 0.32);
   }
 
   .secondary-btn {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.12em];
-    color: var(--accent-deep);
-    border: 1px solid rgba(142, 69, 34, 0.34);
-    background: rgba(255, 252, 248, 0.9);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-bold;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .secondary-btn:hover {
-    border-color: rgba(142, 69, 34, 0.6);
-    background: rgba(255, 251, 245, 1);
+    border-color: var(--accent);
+    color: var(--accent-light);
   }
 
-  .chip-btn {
-    @apply rounded-full px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em];
-    border: 1px solid rgba(142, 69, 34, 0.25);
-    color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.72);
-  }
-
-  .chip-btn.active {
-    color: #fff8f1;
-    border-color: transparent;
-    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-    box-shadow: 0 12px 25px rgba(130, 64, 33, 0.24);
+  .pill {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-[12px] font-semibold;
+    color: var(--accent-light);
+    background: var(--accent-soft);
   }
 
   .divider-line {
     height: 1px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(156, 124, 100, 0), rgba(156, 124, 100, 0.55), rgba(156, 124, 100, 0));
+    background: var(--border-tone);
   }
 }
 
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.font-display {
+  font-family: var(--font-display);
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+.poster-orange {
+  background-color: var(--accent);
+  background-image:
+    var(--texture),
+    radial-gradient(ellipse at 50% 30%, #ff8a3d 0%, var(--accent) 45%, #b8440a 100%);
 }

@@ -4,7 +4,8 @@ module.exports = {
     './app/**/*.{html,js,jsx}',
     './components/**/*.{html,js,jsx}',
     './sections/**/*.{html,js,jsx}',
-    './styles/**/*.{js,jsx,css}', // <- ADD this line
+    './pages/**/*.{js,jsx}',
+    './styles/**/*.{js,jsx,css}',
   ],
   mode: 'jit',
   theme: {
