@@ -103,21 +103,24 @@ export const eelMenu = {
     {
       id: 'eel-a',
       name: 'Course A',
-      serves: 'For 2–3',
+      serves: 'For 2',
+      price: 119.99,
       imgUrl: menuImage('eel-course-a'),
       items: ['Eel 500g', 'Shrimp', 'Squid', 'Butter Shrimp', 'Steamed Egg', 'Beef Broth Soup'],
     },
     {
       id: 'eel-b',
       name: 'Course B',
-      serves: 'For 3–4',
+      serves: 'For 3',
+      price: 179.99,
       imgUrl: menuImage('eel-course-b'),
       items: ['Eel 750g', 'Shrimp', 'Squid', 'Butter Shrimp', 'Steamed Egg', 'Beef Broth Soup', 'Beef Tartare'],
     },
     {
       id: 'eel-c',
       name: 'Course C',
-      serves: 'For 4–5',
+      serves: 'For 4',
+      price: 239.99,
       imgUrl: menuImage('eel-course-c'),
       items: ['Eel 1kg', 'Shrimp', 'Squid', 'Butter Shrimp', 'Steamed Egg', 'Beef Broth Soup', 'Beef Tartare', 'Beef Green Onion Pancake'],
     },
@@ -129,6 +132,33 @@ export const eelMenu = {
     { title: 'Enjoy with Sauce', text: 'Once all sides are cooked to a crisp, dip in your favorite sauce and enjoy!' },
   ],
 };
+
+export const aLaCarteCombos = [
+  {
+    id: 'pork-lovers',
+    name: 'Pork Lovers',
+    price: 75.99,
+    items: ['Thinly Sliced Pork Belly', 'Sweet & Spicy Sliced Pork Belly', 'Pork Belly', 'Pork Shoulder', 'Pork Jowl', 'Soy Sauce Marinated Pork'],
+  },
+  {
+    id: 'beef-lovers',
+    name: 'Beef Lovers',
+    price: 169.99,
+    items: ['Thinly Sliced Beef Short Plate', 'Beef Bulgogi', 'Sweet & Spicy Bulgogi', 'Garlic Kalbi', 'Marinated LA Short Rib', 'Beef Ribs Boneless', 'Seasoned Beef Ribs Boneless', 'Wagyu'],
+  },
+  {
+    id: 'all-meat-lovers',
+    name: 'All Meat Lovers',
+    price: 164.99,
+    items: ['Pork Belly', 'Pork Shoulder', 'Soy Sauce Marinated Pork', 'Sweet & Spicy Sliced Pork Belly', 'Thinly Sliced Beef Short Plate', 'Beef Bulgogi', 'Garlic Kalbi', 'Marinated LA Short Rib', 'Beef Ribs Boneless', 'Seasoned Beef Ribs Boneless'],
+  },
+  {
+    id: 'marinated-meat-day',
+    name: 'Marinated Meat Day',
+    price: 139.99,
+    items: ['Soy Sauce Marinated Pork', 'Sweet & Spicy Sliced Pork Belly', 'Beef Bulgogi', 'Garlic Kalbi', 'Marinated LA Short Rib', 'Seasoned Beef Ribs Boneless', 'Soy-Marinated Chicken', 'Garlic Chicken'],
+  },
+];
 
 export const aLaCarteMenu = [
   {
@@ -167,9 +197,9 @@ export const aLaCarteMenu = [
     id: 'chicken',
     title: 'Chicken',
     items: [
-      { title: 'Soy-Marinated Chicken', price: 15.99, imgUrl: menuImage('soy-chicken') },
-      { title: 'Sweet & Spicy Chicken', price: 15.99, imgUrl: menuImage('spicy-chicken') },
-      { title: 'Garlic Chicken', price: 15.99, imgUrl: menuImage('garlic-chicken') },
+      { title: 'Soy-Marinated Chicken', price: 16.99, imgUrl: menuImage('soy-chicken') },
+      { title: 'Sweet & Spicy Chicken', price: 16.99, imgUrl: menuImage('spicy-chicken') },
+      { title: 'Garlic Chicken', price: 16.99, imgUrl: menuImage('garlic-chicken') },
     ],
   },
   {

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { aLaCarteMenu, ayceMenu, eelMenu } from '../constants';
+import { aLaCarteCombos, aLaCarteMenu, ayceMenu, eelMenu } from '../constants';
 import { BrushMark } from '../components';
 
 const formatPrice = (price) => `$${price.toFixed(2)}`;
@@ -229,6 +229,27 @@ const Menu = () => (
       </p>
       <FinePrint items={orderRules} className="mt-8 text-left sm:mt-10" />
     </article>
+
+    <Poster id="combos">
+      <PosterHeading eyebrow="À La Carte" title="Combos" />
+      <ul className="grid gap-x-12 gap-y-10 md:grid-cols-2">
+        {aLaCarteCombos.map((combo) => (
+          <li key={combo.id} className="border-t border-[var(--border-tone)] pt-6">
+            <div className="flex items-baseline justify-between gap-4">
+              <p className="font-display text-[30px] font-extrabold uppercase leading-none text-[var(--text-primary)] sm:text-[38px]">
+                {combo.name}
+              </p>
+              <p className="font-display shrink-0 text-[26px] font-extrabold leading-none text-[var(--accent)] sm:text-[32px]">
+                {formatPrice(combo.price)}
+              </p>
+            </div>
+            <p className="mt-4 text-[15px] leading-7 text-[var(--text-primary)]">
+              {combo.items.join(' + ')}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </Poster>
 
     {aLaCarteMenu.map((category) => (
       <Poster key={category.id} id={category.id}>
