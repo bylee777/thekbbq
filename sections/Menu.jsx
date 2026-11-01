@@ -1,10 +1,22 @@
 'use client';
 
 import Image from 'next/image';
-import { aLaCarteCombos, aLaCarteMenu, ayceMenu, eelMenu } from '../constants';
+import { aLaCarteCombos, aLaCarteMenu, ayceMenu, eelMenu, ko } from '../constants';
 import { BrushMark } from '../components';
 
 const formatPrice = (price) => `$${price.toFixed(2)}`;
+
+// "Beef" -> "Beef · 소고기"; falls back to the English alone.
+const withKo = (name) => (ko(name) ? `${name} · ${ko(name)}` : name);
+// "A + B" in English and Korean, for course/combo item lists.
+const koList = (items) => (items.every((i) => ko(i)) ? items.map(ko).join(' + ') : null);
+
+const KoLine = ({ children, className = '' }) =>
+  children ? (
+    <p lang="ko" className={`mt-1 font-sans font-medium text-[var(--text-muted)] ${className}`}>
+      {children}
+    </p>
+  ) : null;
 
 const orderRules = [
   'Minimum order is 2 servings of meat or vegan set per table.',
@@ -17,12 +29,13 @@ const PosterHeading = ({ eyebrow, title }) => (
     <BrushMark />
     {eyebrow && (
       <p className="relative text-[15px] font-bold uppercase tracking-[0.12em] text-[var(--accent-light)] sm:text-[18px]">
-        {eyebrow}
+        {withKo(eyebrow)}
       </p>
     )}
     <p className="font-display relative mt-1 text-[44px] font-extrabold uppercase leading-none text-[var(--text-primary)] sm:text-[60px]">
       {title}
     </p>
+    <KoLine className="text-[18px] sm:text-[24px]">{ko(title)}</KoLine>
   </div>
 );
 
@@ -57,6 +70,7 @@ const DishRow = ({ title, price, imgUrl, flip }) => (
       <p className="font-display text-[24px] font-bold leading-[1.02] text-[var(--text-primary)] sm:text-[32px]">
         {title}
       </p>
+      <KoLine className="text-[16px] sm:text-[20px]">{ko(title)}</KoLine>
       {typeof price === 'number' && (
         <p className="font-display mt-2 text-[22px] font-bold leading-none text-[var(--accent)] sm:text-[28px]">
           {formatPrice(price)}
@@ -97,6 +111,7 @@ const Menu = () => (
         <h1 className="font-display text-[56px] font-extrabold leading-[0.9] sm:text-[104px]">
           All You Can Eat
         </h1>
+        <p lang="ko" className="mt-2 text-[22px] font-bold sm:text-[32px]">무한리필</p>
         <p className="font-display mt-3 text-[18px] font-bold uppercase tracking-[0.3em] sm:text-[22px]">
           The KBBQ · Toronto
         </p>
@@ -180,6 +195,7 @@ const Menu = () => (
               </p>
               <p className="font-display mt-1 text-[18px] font-semibold uppercase text-[var(--text-muted)]">
                 {course.serves}
+                {ko(course.serves) && <span lang="ko" className="ml-2 font-sans normal-case">· {ko(course.name)} · {ko(course.serves)}</span>}
               </p>
               {typeof course.price === 'number' && (
                 <p className="font-display mt-3 text-[32px] font-extrabold leading-none text-[var(--accent)]">
@@ -189,6 +205,7 @@ const Menu = () => (
               <p className="mt-4 text-[15px] leading-7 text-[var(--text-primary)]">
                 {course.items.join(' + ')}
               </p>
+              <KoLine className="text-[14px] leading-6">{koList(course.items)}</KoLine>
             </div>
           </div>
         ))}
@@ -198,6 +215,7 @@ const Menu = () => (
         <p className="font-display text-[26px] font-bold uppercase text-[var(--text-primary)] sm:text-[32px]">
           How to Grill Eel Perfectly
         </p>
+        <KoLine className="text-[16px]">장어 맛있게 굽는 법</KoLine>
         <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {eelMenu.grillSteps.map((step, index) => (
             <li key={step.title}>
@@ -224,6 +242,7 @@ const Menu = () => (
       <h2 className="font-display text-[56px] font-extrabold leading-[0.9] sm:text-[96px]">
         À La Carte
       </h2>
+      <p lang="ko" className="mt-2 text-[22px] font-bold sm:text-[32px]">단품</p>
       <p className="font-display mt-3 text-[18px] font-bold uppercase tracking-[0.3em] sm:text-[22px]">
         Individual Cuts &amp; Dishes
       </p>
@@ -238,6 +257,7 @@ const Menu = () => (
             <div className="flex items-baseline justify-between gap-4">
               <p className="font-display text-[30px] font-extrabold uppercase leading-none text-[var(--text-primary)] sm:text-[38px]">
                 {combo.name}
+                <span lang="ko" className="mt-1 block font-sans text-[16px] font-medium normal-case text-[var(--text-muted)] sm:text-[18px]">{ko(combo.name)}</span>
               </p>
               <p className="font-display shrink-0 text-[26px] font-extrabold leading-none text-[var(--accent)] sm:text-[32px]">
                 {formatPrice(combo.price)}
@@ -246,6 +266,7 @@ const Menu = () => (
             <p className="mt-4 text-[15px] leading-7 text-[var(--text-primary)]">
               {combo.items.join(' + ')}
             </p>
+            <KoLine className="text-[14px] leading-6">{koList(combo.items)}</KoLine>
           </li>
         ))}
       </ul>
