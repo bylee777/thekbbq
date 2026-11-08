@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { aLaCarteCombos, aLaCarteMenu, ayceMenu, eelMenu, ko } from '../constants';
-import { BrushMark } from '../components';
+import { BrushMark, MenuTiles } from '../components';
 
 const formatPrice = (price) => `$${price.toFixed(2)}`;
 
@@ -48,7 +48,7 @@ const Poster = ({ id, children, className = '' }) => (
   </article>
 );
 
-const DishRow = ({ title, price, imgUrl, flip }) => (
+const DishRow = ({ title, price, imgUrl, note, flip }) => (
   <li className="grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center gap-4 sm:gap-6">
     <div className={`relative aspect-square ${flip ? 'order-2' : ''}`}>
       {imgUrl ? (
@@ -74,6 +74,11 @@ const DishRow = ({ title, price, imgUrl, flip }) => (
       {typeof price === 'number' && (
         <p className="font-display mt-2 text-[22px] font-bold leading-none text-[var(--accent)] sm:text-[28px]">
           {formatPrice(price)}
+        </p>
+      )}
+      {note && (
+        <p className="mt-2 text-[13px] font-semibold uppercase tracking-[0.06em] text-[var(--text-muted)] sm:text-[14px]">
+          {note}
         </p>
       )}
     </div>
@@ -102,6 +107,8 @@ const FinePrint = ({ items, className = '' }) => (
 
 const Menu = () => (
   <section id="menu" className="mx-auto w-full max-w-[1080px] scroll-mt-20 space-y-6 px-3 pb-20 pt-6 sm:space-y-10 sm:px-8 sm:pt-10">
+    <MenuTiles className="mx-auto max-w-[720px]" />
+
     {/* ─── AYCE COVER ───────────────────────────────────────────────────── */}
     <article
       id="ayce"
